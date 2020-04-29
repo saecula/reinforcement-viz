@@ -1,7 +1,8 @@
 import React from 'react';
+import { Box } from 'rebass';
 
 const Controller = () => {
-  return <div></div>;
+  return <Box>hey</Box>;
 };
 
 export default Controller;

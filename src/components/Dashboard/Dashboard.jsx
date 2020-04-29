@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
-import AgentForm from '../Agent/AgentForm';
-import { Box, Flex } from 'rebass';
+import React from 'react';
+import { Flex } from 'rebass';
 import Controller from './Controller';
-import AgentList from './AgentList';
 import ResultsGraph from './ResultsGraph';
+import AgentButtonGroup from './AgentButtonGroup';
+import AgentForm from './AgentForm';
+import useDashboard from '../hooks/useDashboard';
+import DashboardCtx from './DashboardCtx';
 
 const Dashboard = () => {
-  const [addAgent, setAddAgent] = useState({ id: null });
+  const hooks = useDashboard();
   return (
-    <Box>
-      {addAgent.id ? (
-        <AgentForm id={addAgent.id} />
-      ) : (
-        <Flex>
+    <div>
+      <DashboardCtx.Provider value={hooks}>
+        {hooks.modalView && <AgentForm />}
+        <Flex justifyContent="space-around">
           <Controller />
-          <AgentList />
+          <AgentButtonGroup />
           <ResultsGraph />
         </Flex>
-      )}
-    </Box>
+      </DashboardCtx.Provider>
+    </div>
   );
 };
 
