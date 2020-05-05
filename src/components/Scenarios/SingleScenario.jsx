@@ -1,13 +1,19 @@
 import React, { useContext } from 'react';
-import { Box, Button } from 'rebass';
-import Ctx from '../MainCtx';
+import { Button, Box } from 'rebass';
+import ScenarioCtx from './ScenarioCtx';
+import MainCtx from '../MainCtx';
 
 const SingleScenario = (props) => {
-  const { removeScenario } = useContext(Ctx);
-  const { name, id } = props.scenario;
+  const { removeScenario } = useContext(MainCtx);
+  const { openForm } = useContext(ScenarioCtx);
+  const { id, name } = props.scenario;
   return (
-    <Box style={{ padding: '3em' }}>
+    <Box padding="100px">
       <h1>{name}</h1>
+      <Button color="black" onClick={() => openForm(id)}>
+        new
+      </Button>
+      <h2>real fancy stuff goes here</h2>
       <Button color="black" onClick={() => removeScenario(id)}>
         x
       </Button>

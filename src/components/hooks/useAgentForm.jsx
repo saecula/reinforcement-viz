@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
 import Ctx from '../MainCtx';
-import DashboardCtx from '../Dashboard/DashboardCtx';
+import ScenarioCtx from '../Scenarios/ScenarioCtx';
 import { defaultValue } from '../../constants';
 
 const useAgentForm = (agent) => {
   const { addScenario } = useContext(Ctx);
-  const { closeForm } = useContext(DashboardCtx);
+  const { closeForm } = useContext(ScenarioCtx);
 
   const [inputs, setInputs] = useState(
     agent.fields.reduce(

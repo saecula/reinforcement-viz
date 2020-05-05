@@ -2,8 +2,7 @@ import React from 'react';
 import { Flex } from 'rebass';
 import Controller from './Controller';
 import ResultsGraph from './ResultsGraph';
-import AgentButtonGroup from './AgentButtonGroup';
-import AgentForm from './AgentForm';
+import ScenarioInfoGroup from './ScenarioInfoGroup';
 import useDashboard from '../hooks/useDashboard';
 import DashboardCtx from './DashboardCtx';
 
@@ -12,10 +11,9 @@ const Dashboard = () => {
   return (
     <div>
       <DashboardCtx.Provider value={hooks}>
-        {hooks.modalView && <AgentForm />}
         <Flex justifyContent="space-around">
           <Controller />
-          <AgentButtonGroup />
+          <ScenarioInfoGroup />
           <ResultsGraph />
         </Flex>
       </DashboardCtx.Provider>

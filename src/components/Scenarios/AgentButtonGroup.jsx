@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex } from 'rebass';
-import AgentButton from './AgentButton';
+import AgentButton from './SingleScenario';
 import { agentsList } from '../../constants';
 
 const AgentButtonGroup = () => (
