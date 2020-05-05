@@ -11,7 +11,7 @@ import { envs } from '../../constants';
 const Scenarios = () => {
   const { scenarios, setEnvironment } = useContext(Ctx);
   const hooks = useScenario();
-
+  console.log('scenarios:', scenarios);
   return (
     <Box>
       <ScenarioCtx.Provider value={hooks}>

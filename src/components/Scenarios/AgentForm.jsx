@@ -1,20 +1,28 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Box, Button } from 'rebass';
-import { Label, Input } from '@rebass/forms';
+import { Label, Input, Select } from '@rebass/forms';
 import useAgentForm from '../hooks/useAgentForm';
-import ScenarioCtx from './ScenarioCtx';
 import { agentsList, defaultValue } from '../../constants';
 
 const AgentForm = () => {
-  const { agentId } = useContext(ScenarioCtx);
-  const agent = agentsList.find((a) => a.id === agentId);
-
-  const { handleSubmit, handleChange } = useAgentForm(agent);
-
+  const {
+    agent,
+    handleAgentChange,
+    handleChange,
+    handleSubmit,
+  } = useAgentForm();
+  console.log('...agent', agent);
   return (
     <Box variant="card">
       <Box as="form" onSubmit={handleSubmit}>
-        <h1>{agent.name}</h1>
+        <Label>choose an Agent</Label>
+        <Select defaultValue={agentsList[0].name} onChange={handleAgentChange}>
+          {agentsList.map((a, idx) => (
+            <option key={idx} value={a.key}>
+              {a.name}
+            </option>
+          ))}
+        </Select>
         {agent.fields.map((field, idx) => (
           <Box key={idx}>
             <Label>{field}</Label>

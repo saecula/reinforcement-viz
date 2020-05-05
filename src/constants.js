@@ -1,26 +1,26 @@
 export const agentsList = [
   {
-    id: 1,
+    key: 'MONTE_CARLO',
     name: 'Monte Carlo',
     fields: ['alpha', 'gamma', 'epsilon'],
   },
   {
-    id: 2,
+    key: 'SARSA',
     name: 'SARSA',
     fields: ['alpha', 'gamma', 'epsilon'],
   },
   {
-    id: 3,
+    key: 'Q_LEARNING',
     name: 'Q learning',
     fields: ['alpha', 'gamma'],
   },
   {
-    id: 4,
+    key: 'DOUBLE_Q_LEARNING',
     name: 'Double Q learning',
     fields: ['gamma', 'epsilon'],
   },
   {
-    id: 5,
+    key: 'N_SOMETHINGOROTHER',
     name: 'n somethingorother',
     fields: ['alpha'],
   },
@@ -33,24 +33,29 @@ export const defaultValue = {
   gamma: 0.8,
 };
 
+export const initialScenario = {
+  key: 'MONTE_CARLO',
+  name: 'Monte Carlo',
+};
+
 export const envs = [
   {
-    id: 1,
+    key: 'CLIFF',
     name: 'cliff',
     metadata: {},
   },
   {
-    id: 2,
+    key: 'WIND',
     name: 'wind',
     metadata: {},
   },
   {
-    id: 3,
+    key: 'TUNNEL',
     name: 'tunnel',
     metadata: {},
   },
   {
-    id: 4,
+    key: 'CASINO',
     name: 'casino',
     metadata: {},
   },

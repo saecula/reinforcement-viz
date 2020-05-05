@@ -1,11 +1,11 @@
 //put in separate hook
 import { useState } from 'react';
-import { envs } from '../../constants';
+import { envs, initialScenario } from '../../constants';
 
 const useMainView = () => {
   const [environment, setEnv] = useState(envs[0]);
   const [scenarios, setScenarios] = useState([
-    { id: 1, name: 'Monte Carlo', env: environment },
+    { ...initialScenario, env: environment },
   ]);
 
   const setEnvironment = (name) => {
@@ -15,8 +15,8 @@ const useMainView = () => {
   };
   const addScenario = (a) =>
     setScenarios((prev) => [...prev, { ...a, env: environment }]);
-  const removeScenario = (id) =>
-    setScenarios((prev) => prev.filter((a) => a.id !== id));
+  const removeScenario = (key) =>
+    setScenarios((prev) => prev.filter((a) => a.key !== key));
 
   return {
     environment,
