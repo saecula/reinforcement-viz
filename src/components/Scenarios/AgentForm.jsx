@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button } from 'rebass';
-import { Label, Input, Select } from '@rebass/forms';
+import { Label } from '@rebass/forms';
+import { Input, Select, ModalContent, ModalWrapper } from '../styles';
 import useAgentForm from '../hooks/useAgentForm';
 import { agentsList, defaultValue } from '../../constants';
 
@@ -11,10 +12,9 @@ const AgentForm = () => {
     handleChange,
     handleSubmit,
   } = useAgentForm();
-  console.log('...agent', agent);
   return (
-    <Box variant="card">
-      <Box as="form" onSubmit={handleSubmit}>
+    <ModalWrapper>
+      <ModalContent as="form" onSubmit={handleSubmit}>
         <Label>choose an Agent</Label>
         <Select defaultValue={agentsList[0].name} onChange={handleAgentChange}>
           {agentsList.map((a, idx) => (
@@ -38,8 +38,8 @@ const AgentForm = () => {
         <Button type="submit" color="black">
           poof
         </Button>
-      </Box>
-    </Box>
+      </ModalContent>
+    </ModalWrapper>
   );
 };
 

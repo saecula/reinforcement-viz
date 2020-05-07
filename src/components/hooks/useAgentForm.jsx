@@ -14,7 +14,6 @@ const useAgentForm = () => {
   const { closeForm } = useContext(ScenarioCtx);
 
   const [agent, setAgent] = useState(agentsList[0]);
-  console.log('agentslist inside hook', agentsList[0]);
   const [inputs, setInputs] = useState(inputsFrom(agent));
 
   const handleAgentChange = (event) => {
@@ -38,10 +37,10 @@ const useAgentForm = () => {
   };
 
   return {
+    agent,
     handleAgentChange,
     handleChange,
     handleSubmit,
-    agent,
   };
 };
 
