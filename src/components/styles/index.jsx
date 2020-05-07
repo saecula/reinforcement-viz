@@ -23,6 +23,7 @@ export const ModalWrapper = styled.div`
   position: absolute;
   align-items: center;
   justify-content: center;
+  // filter: blur(3px);  use elsewhere
 `;
 
 export const ModalContent = styled.div`
@@ -37,4 +38,25 @@ export const ModalContent = styled.div`
   filter: blur(0);
   transform: scale(1);
   opacity: 1;
+`;
+
+export const ScenarioViewer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: space-around;
+  padding: 2rem;
+  height: 30rem;
+`;
+
+export const ScenarioBox = styled.div`
+  padding: 10px;
+  background: #ffffff !important;
+  width: 30%;
+  margin: 10px;
+  flex-basis: auto;
+  text-align: center;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
 `;

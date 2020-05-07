@@ -2,11 +2,18 @@ import React from 'react';
 import { Box } from 'rebass';
 
 const ScenarioInfo = (props) => {
-  const { name, env } = props.scenario;
+  const { name, options } = props.scenario;
+  const optionsString = options
+    ? Object.keys(options).reduce(
+        (str, key) => str + ` ${key}: ${options[key]}`,
+        ''
+      )
+    : null;
   return (
-    <Box style={{ padding: '3em' }}>
-      <h3>{name}</h3>
-      <h5>{env.name}</h5>
+    <Box style={{ padding: '5px' }}>
+      <h5>
+        {name}: {optionsString}
+      </h5>
     </Box>
   );
 };

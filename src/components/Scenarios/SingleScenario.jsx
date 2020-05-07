@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
-import { Button, Box } from 'rebass';
+import { Button } from 'rebass';
+import { ScenarioBox } from '../styles';
 import ScenarioCtx from './ScenarioCtx';
 import MainCtx from '../MainCtx';
 
 const SingleScenario = (props) => {
   const { removeScenario } = useContext(MainCtx);
   const { openForm } = useContext(ScenarioCtx);
-  const { key, name } = props.scenario;
+  const { id, name } = props.scenario;
   return (
-    <Box padding="100px">
+    <ScenarioBox id="scenario-box">
       <h1>{name}</h1>
       <Button
         color="black"
@@ -19,10 +20,10 @@ const SingleScenario = (props) => {
         new
       </Button>
       <h2>real fancy stuff goes here</h2>
-      <Button color="black" onClick={() => removeScenario(key)}>
+      <Button color="black" onClick={() => removeScenario(id)}>
         x
       </Button>
-    </Box>
+    </ScenarioBox>
   );
 };
 

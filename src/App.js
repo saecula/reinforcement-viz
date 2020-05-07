@@ -6,12 +6,13 @@ import Main from './components/Main';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{ height: '100vh', boxSizing: 'border-box' }}>
       <Global
         styles={css`
           ${normalize}
           body {
-            background-color: #fafafa;
+            background-color: #ffffff;
+            max-height: 100px;
           }
         `}
       />

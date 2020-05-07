@@ -1,4 +1,4 @@
-//put in separate hook
+import { v4 as uuid } from 'uuid';
 import { useState, useEffect } from 'react';
 import { envs, initialScenario } from '../../constants';
 
@@ -27,11 +27,13 @@ const useMainView = () => {
     setEnv(newEnv);
     setScenarios((prev) => prev.map((a) => ({ ...a, env: newEnv })));
   };
-  const addScenario = (a) =>
-    setScenarios((prev) => [...prev, { ...a, env: environment }]);
-  const removeScenario = (key) => {
+  const addScenario = (s) => {
+    if (scenarios.length < 4)
+      setScenarios((prev) => [...prev, { ...s, id: uuid(), env: environment }]);
+  };
+  const removeScenario = (id) => {
     if (scenarios.length > 1)
-      setScenarios((prev) => prev.filter((a) => a.key !== key));
+      setScenarios((prev) => prev.filter((a) => a.id !== id));
   };
 
   return {

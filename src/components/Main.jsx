@@ -1,13 +1,24 @@
 import React from 'react';
+import { Box } from 'rebass';
+import Title from './Title';
 import Scenarios from './Scenarios/Scenarios';
 import Dashboard from './Dashboard';
 import { CtxProvider } from './MainCtx';
-import { Box } from 'rebass';
+
+const css = {
+  display: 'flex',
+  width: '92%',
+  height: '100%',
+  padding: '10px',
+  flexDirection: 'column',
+  boxSizing: 'border-box',
+};
 
 function Main() {
   return (
-    <Box>
+    <Box css={css}>
       <CtxProvider>
+        <Title />
         <Scenarios />
         <Dashboard />
       </CtxProvider>

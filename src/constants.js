@@ -34,6 +34,7 @@ export const defaultValue = {
 };
 
 export const initialScenario = {
+  id: 0,
   key: 'MONTE_CARLO',
   name: 'Monte Carlo',
 };
