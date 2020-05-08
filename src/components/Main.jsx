@@ -7,7 +7,7 @@ import { CtxProvider } from './MainCtx';
 
 const css = {
   display: 'flex',
-  width: '92%',
+  width: '93%',
   height: '100%',
   padding: '10px',
   flexDirection: 'column',

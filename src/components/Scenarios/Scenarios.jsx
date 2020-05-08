@@ -39,8 +39,8 @@ const Scenarios = () => {
           </Modal>
         )}
         <ScenarioViewer>
-          {scenarios.map((s, i) => (
-            <SingleScenario key={i} scenario={s} />
+          {scenarios.map((s, i, arr) => (
+            <SingleScenario key={i} idx={i} len={arr.length} scenario={s} />
           ))}
         </ScenarioViewer>
       </ScenarioCtx.Provider>

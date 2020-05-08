@@ -49,10 +49,21 @@ export const ScenarioViewer = styled.div`
   height: 30rem;
 `;
 
+export const OuterScenarioBox = styled.div`
+  background: #ffffff !important;
+  min-width: 40%;
+  flex-basis: auto;
+  text-align: center;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+`;
+
 export const ScenarioBox = styled.div`
   padding: 10px;
+  z-index: 100;
   background: #ffffff !important;
-  width: 30%;
+  min-width: 40%;
   margin: 10px;
   flex-basis: auto;
   text-align: center;
