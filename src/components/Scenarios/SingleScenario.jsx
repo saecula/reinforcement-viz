@@ -32,7 +32,6 @@ const SingleScenario = (props) => {
       )}
       <ScenarioBox id="scenario-box">
         <h1>{name}</h1>
-        <h2>real fancy stuff goes here</h2>
         <Button color="black" onClick={() => removeScenario(id)}>
           x
         </Button>

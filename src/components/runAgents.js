@@ -1,5 +1,53 @@
+const environments = {
+  one: {},
+  another: {},
+  casino: {},
+  tinyEnv: {
+    agentCoords: [0, 0],
+    states: [
+      [1, 2],
+      [3, 4],
+    ],
+    rewards: [
+      [-1, 1],
+      [0, -1],
+    ],
+    stepChange(action) {
+      let [y, x] = this.agentCoords;
+      let newState;
+      switch (action) {
+        case 'left': {
+          newState = [y, x - 1];
+          break;
+        }
+        case 'right': {
+          newState = [y, x + 1];
+          break;
+        }
+        case 'up': {
+          newState = [y - 1, x];
+          break;
+        }
+        case 'down': {
+          newState = [y + 1, x];
+          break;
+        }
+        default: {
+          newState = [y, x];
+        }
+      }
+      let [newY, newX] = newState;
+      const reward = this.rewards[newY][newX];
+      this.agentCoords = newState;
+      return [newState, reward];
+    },
+  },
+};
+
 class Agent {
-  constructor() {}
+  constructor(props) {
+    this.env = props.env;
+  }
 }
 
 /*** 
@@ -12,6 +60,7 @@ props: {
     }
 }
 ***/
+
 class MonteCarloAgent extends Agent {
   constructor(props) {
     super(props);
@@ -19,9 +68,13 @@ class MonteCarloAgent extends Agent {
       props.allStates,
       props.getActionsForState
     );
+    this.returnsMap = this.returnsMapInit(
+      props.allStates,
+      props.getActionsForState
+    );
     this.epsilon = this.props.options.epsilon;
     this.gamma = this.props.options.gamma;
-    this.getActionsForState = this.props.getActionsForState;
+    this.getActionsForState = props.getActionsForState;
   }
   actionValueFuncInit(allStates, getActionsForState) {
     const actionValues = {};
@@ -43,14 +96,21 @@ class MonteCarloAgent extends Agent {
     });
     return returnsMap;
   }
-  actionValueFunction(state) {
-    let actions = this.getActionsForState(state);
-    const isRandom = () => Math.floor(this.epsilon / Math.random());
 
-    if (isRandom) {
-      let idx = Math.floor(Math.random() * Math.floor(actions.length));
-      return actions[idx];
-    } else {
+  step(state) {
+    let actions = this.getActionsForState(state);
+
+    // todo: for now it is completely random
+    // const isRandom = () => Math.floor(this.epsilon / Math.random());
+
+    let idx = Math.floor(actions.length * Math.random());
+    let action = actions[idx];
+
+    let [newState, reward] = this.env.stepChange(action);
+    this.actionValues[state + action] = reward;
+
+    if (newState) {
+      this.step(newState); // if not end state
     }
   }
 }
