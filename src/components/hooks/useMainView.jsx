@@ -10,7 +10,7 @@ const useMainView = () => {
   const localEnv = isValid(e) ? JSON.parse(e) : null;
   const localScenario = isValid(s) ? JSON.parse(s) : null;
 
-  const [environment, setEnv] = useState(localEnv ? localEnv : envs[0]);
+  const [environment, setEnv] = useState(envs[0]);
   const [scenarios, setScenarios] = useState(
     localScenario.length
       ? localScenario

@@ -3,6 +3,7 @@ import { Button } from 'rebass';
 import { ScenarioBox, OuterScenarioBox } from '../styles';
 import ScenarioCtx from './ScenarioCtx';
 import MainCtx from '../MainCtx';
+import Grid from './Grid';
 
 const AddButtonCss = {
   color: 'white',
@@ -31,7 +32,7 @@ const SingleScenario = (props) => {
         </Button>
       )}
       <ScenarioBox id="scenario-box">
-        <h1>{name}</h1>
+        <Grid />
         <Button color="black" onClick={() => removeScenario(id)}>
           x
         </Button>

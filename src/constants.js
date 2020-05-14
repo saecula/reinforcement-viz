@@ -39,25 +39,56 @@ export const initialScenario = {
   name: 'Monte Carlo',
 };
 
+const O = 'white';
+const B = 'black';
+const R = 'red';
+const G = 'green';
+
 export const envs = [
   {
     key: 'CLIFF',
     name: 'cliff',
-    metadata: {},
+    states: [
+      [O, O, O, O, O, B],
+      [O, O, O, O, O, B],
+      [B, B, O, O, O, B],
+      [B, B, O, O, G, B],
+      [B, B, R, R, B, B],
+      [B, B, R, R, B, B],
+    ],
   },
   {
     key: 'WIND',
     name: 'wind',
-    metadata: {},
+    states: [
+      [R, R, R, R, R, B],
+      [O, O, O, O, O, B],
+      [O, O, O, O, G, B],
+      [B, B, O, O, B, B],
+      [O, O, O, O, O, B],
+      [B, B, R, R, B, B],
+    ],
   },
   {
     key: 'TUNNEL',
     name: 'tunnel',
-    metadata: {},
+    states: [
+      [O, O, O, O, O],
+      [O, O, O, O, O],
+      [R, O, O, O, G],
+      [B, B, B, B, B],
+      [O, O, O, O, O],
+    ],
   },
   {
     key: 'CASINO',
     name: 'casino',
-    metadata: {},
+    states: [
+      [O, O, O, O, R],
+      [O, R, O, R, O],
+      [O, O, O, O, O],
+      [R, O, R, O, O],
+      [O, O, O, O, G],
+    ],
   },
 ];

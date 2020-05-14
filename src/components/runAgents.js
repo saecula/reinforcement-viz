@@ -1,65 +1,91 @@
-const environments = {
-  one: {},
-  another: {},
-  casino: {},
-  tinyEnv: {
-    agentCoords: [0, 0],
-    states: [
+class ScenarioRuntimeView {
+  constructor(props) {
+    this.location = props.env.startingCoords;
+    this.grid = this.initializeGrid(props.env);
+  }
+
+  initializeGrid(env) {}
+}
+
+class TiniestEnv {
+  constructor(props) {
+    super(props);
+    this.states = [
       [1, 2],
       [3, 4],
-    ],
-    rewards: [
+    ];
+    this.rewards = [
       [-1, 1],
       [0, -1],
-    ],
-    stepChange(action) {
-      let [y, x] = this.agentCoords;
-      let newState;
-      switch (action) {
-        case 'left': {
-          newState = [y, x - 1];
-          break;
-        }
-        case 'right': {
-          newState = [y, x + 1];
-          break;
-        }
-        case 'up': {
-          newState = [y - 1, x];
-          break;
-        }
-        case 'down': {
-          newState = [y + 1, x];
-          break;
-        }
-        default: {
-          newState = [y, x];
-        }
+    ];
+    this.actions = {
+      left: 'left',
+      right: 'right',
+      down: 'down',
+      up: 'up',
+    };
+  }
+
+  getActionsFunc(state) {
+    const [left, right, down, up] = this.actions;
+    switch (state) {
+      case 1: {
+        return [right, down];
       }
-      let [newY, newX] = newState;
-      const reward = this.rewards[newY][newX];
-      this.agentCoords = newState;
-      return [newState, reward];
-    },
-  },
-};
+      case 2: {
+        return [up, left, down];
+      }
+      case 3: {
+        return [up, right];
+      }
+      case 4: {
+        return [up, left];
+      }
+    }
+  }
+
+  stepChange(action) {
+    const [left, right, down, up] = this.actions;
+    let [y, x] = this.agentCoords;
+    let newState;
+    switch (action) {
+      case left: {
+        newState = [y, x - 1];
+        break;
+      }
+      case right: {
+        newState = [y, x + 1];
+        break;
+      }
+      case up: {
+        if (y === 0 && x === 1) {
+          newState = null;
+        } else {
+          newState = [y - 1, x];
+        }
+        break;
+      }
+      case down: {
+        newState = [y + 1, x];
+        break;
+      }
+      default: {
+        newState = [y, x];
+      }
+    }
+    // has to be a null newstate option
+    let [newY, newX] = newState;
+    const reward = this.rewards[newY][newX];
+    this.agentCoords = newState;
+    return [newState, reward];
+  }
+}
 
 class Agent {
   constructor(props) {
     this.env = props.env;
   }
 }
-
-/*** 
-props: {
-    allStates: [],
-    getActionsForState: () => [],
-    options: {
-        gamma,
-        epsilon,
-    }
-}
-***/
 
 class MonteCarloAgent extends Agent {
   constructor(props) {
