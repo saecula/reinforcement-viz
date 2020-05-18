@@ -1,21 +1,19 @@
-import React, { useContext } from 'react';
-import Ctx from '../MainCtx';
+import React from 'react';
 import { Box } from 'rebass';
 
-const Grid = () => {
-  const { environment } = useContext(Ctx);
-  console.log('environment', environment);
+const Grid = (props) => {
+  const { env: environment } = props;
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       {environment.states.map((row, idx) => (
-        <GridRow key={idx} row={row} />
+        <GridRow key={idx} i={idx} row={row} />
       ))}
     </div>
   );
 };
 
 const GridRow = (props) => {
-  const { row } = props;
+  const { row, i } = props;
   return (
     <div
       style={{
@@ -25,21 +23,32 @@ const GridRow = (props) => {
         flexDirection: 'row',
       }}
     >
-      {row.map((blockType, idx) => (
-        <GridBlock key={idx} blockType={blockType} />
-      ))}
+      {row &&
+        row.map((blockType, idx) => (
+          <GridBlock
+            key={idx}
+            i={i}
+            j={idx / (row.length - 1)}
+            rowLength={row.length}
+            blockType={blockType}
+          />
+        ))}
     </div>
   );
 };
 
 const GridBlock = (props) => {
-  const { blockType } = props;
+  const { blockType, i, j, rowLength } = props;
+  console.log('here', (rowLength / 100) * 2.2);
   return (
     <Box
       style={{
         backgroundColor: blockType,
-        border: '1px solid gray',
-        padding: '7px',
+        borderLeft: '1px solid #D3D3D3',
+        borderBottom: '1px solid #D3D3D3',
+        borderTop: i === 0 ? '1px solid #D3D3D3' : 'none',
+        borderRight: j === 1 ? '1px solid #D3D3D3' : 'none',
+        padding: `${1.08}%`,
         maxWidth: '10%',
       }}
     ></Box>

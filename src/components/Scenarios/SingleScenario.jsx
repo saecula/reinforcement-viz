@@ -9,30 +9,30 @@ const AddButtonCss = {
   color: 'white',
   borderRadius: '50%',
   backgroundColor: 'lightGray',
-  paddingLeft: '13px',
-  paddingRight: '13px',
+  paddingLeft: '3px',
+  paddingRight: '3px',
 };
 
 const SingleScenario = (props) => {
   const { removeScenario } = useContext(MainCtx);
   const { openForm } = useContext(ScenarioCtx);
-  const { id, name } = props.scenario;
+  const { id, env } = props.scenario;
   const { idx, len } = props;
-
+  console.log('here is scenario', props.scenario);
   return (
     <OuterScenarioBox>
       {idx === len - 1 && len < 4 && (
-        <Button
+        <button
           css={AddButtonCss}
           onClick={() => {
             openForm();
           }}
         >
           +
-        </Button>
+        </button>
       )}
       <ScenarioBox id="scenario-box">
-        <Grid />
+        <Grid env={env} />
         <Button color="black" onClick={() => removeScenario(id)}>
           x
         </Button>

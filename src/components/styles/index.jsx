@@ -64,7 +64,7 @@ export const ScenarioBox = styled.div`
   z-index: 100;
   background: #ffffff !important;
   min-width: 40%;
-  margin: 10px;
+  margin: 5px;
   flex-basis: auto;
   text-align: center;
   flex-grow: 1;
