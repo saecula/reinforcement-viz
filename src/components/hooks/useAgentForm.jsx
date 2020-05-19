@@ -31,6 +31,7 @@ const useAgentForm = () => {
     const newScenario = {
       name: agent.name,
       options: { ...inputs },
+      class: agent.class,
     };
     addScenario(newScenario);
     closeForm();

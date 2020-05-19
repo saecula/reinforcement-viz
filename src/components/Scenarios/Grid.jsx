@@ -39,7 +39,6 @@ const GridRow = (props) => {
 
 const GridBlock = (props) => {
   const { blockType, i, j, rowLength } = props;
-  console.log('here', (rowLength / 100) * 2.2);
   return (
     <Box
       style={{

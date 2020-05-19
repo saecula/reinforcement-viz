@@ -1,29 +1,35 @@
 /* eslint-disable no-sparse-arrays */
+import { MonteCarloAgent, TiniestEnv } from './utils/runAgents';
 export const agentsList = [
   {
     key: 'MONTE_CARLO',
     name: 'Monte Carlo',
     fields: ['alpha', 'gamma', 'epsilon'],
+    class: MonteCarloAgent,
   },
   {
     key: 'SARSA',
     name: 'SARSA',
+    class: MonteCarloAgent,
     fields: ['alpha', 'gamma', 'epsilon'],
   },
   {
     key: 'Q_LEARNING',
     name: 'Q learning',
-    fields: ['alpha', 'gamma'],
+    class: MonteCarloAgent,
+    fields: ['alpha', 'gamma', 'epsilon'],
   },
   {
     key: 'DOUBLE_Q_LEARNING',
     name: 'Double Q learning',
-    fields: ['gamma', 'epsilon'],
+    class: MonteCarloAgent,
+    fields: ['alpha', 'gamma', 'epsilon'],
   },
   {
     key: 'N_SOMETHINGOROTHER',
     name: 'n somethingorother',
-    fields: ['alpha'],
+    class: MonteCarloAgent,
+    fields: ['alpha', 'gamma', 'epsilon'],
   },
 ];
 
@@ -38,6 +44,7 @@ export const initialScenario = {
   id: 0,
   key: 'MONTE_CARLO',
   name: 'Monte Carlo',
+  class: MonteCarloAgent,
 };
 
 export const O = 'white';
@@ -59,16 +66,16 @@ export const G = 'green';
 //   [B, B, B, B, R, R, R, R, R, R, R, R, R, R, R, R, R, R],
 // ],
 
-class CliffEnvironment {}
-class TunnelEnvironment {}
-class WindEnvironment {}
-class CasinoEnvironment {}
+// class CliffEnvironment {}
+// class TunnelEnvironment {}
+// class WindEnvironment {}
+// class CasinoEnvironment {}
 
 export const envs = [
   {
     key: 'CLIFF',
     name: 'cliff',
-    class: CliffEnvironment,
+    class: TiniestEnv,
     states: [
       [
         O,
@@ -560,7 +567,7 @@ export const envs = [
   {
     key: 'WIND',
     name: 'wind',
-    class: WindEnvironment,
+    class: TiniestEnv,
     states: [
       [
         O,
@@ -1052,7 +1059,7 @@ export const envs = [
   {
     key: 'TUNNEL',
     name: 'tunnel',
-    class: TunnelEnvironment,
+    class: TiniestEnv,
     states: [
       [
         O,
@@ -1544,7 +1551,7 @@ export const envs = [
   {
     key: 'CASINO',
     name: 'casino',
-    class: CasinoEnvironment,
+    class: TiniestEnv,
     states: [
       [
         O,
