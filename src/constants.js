@@ -35,7 +35,7 @@ export const agentsList = [
 
 // needs to be agent-specific
 export const defaultValue = {
-  epsilon: 0.3,
+  epsilon: 0.1,
   alpha: 0.5,
   gamma: 0.8,
 };

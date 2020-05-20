@@ -6,13 +6,14 @@ import {
   B,
   O,
   R,
+  G,
 } from '../constants';
 
 const averageOf = (arr) => arr.reduce((tot, x) => tot + x, 0) / arr.length;
 // reactState:
 // running: bool,
 // rewards: []
-export function runScenario(scenario, addToRewards, limit = 40) {
+export function runScenario(scenario, addToRewards, limit = 800) {
   const environment = new TiniestEnv();
   const { states, getActionsForState } = environment;
   const { options } = scenario;
@@ -24,15 +25,22 @@ export function runScenario(scenario, addToRewards, limit = 40) {
   let runs = 0;
 
   const runEpisode = () => {
-    const { state } = environment;
-    let reward = 1;
-    let action;
+    let { state } = environment;
 
-    while (reward) {
+    let action;
+    let steps = 0;
+
+    let done = false;
+    while (!done) {
       action = agent.act(state);
-      reward = environment.reward(action);
+      let [newState, reward, newDone] = environment.step(action);
+      done = newDone;
       agent.handleReward(state, action, reward);
+      state = newState;
+      steps++;
     }
+
+    console.log('steps in this episode:', steps);
 
     const episodeResult = agent.calculateResult();
     addToRewards(episodeResult);
@@ -40,7 +48,9 @@ export function runScenario(scenario, addToRewards, limit = 40) {
     runs++;
 
     if (runs < limit) {
-      setTimeout(runEpisode(agent, environment), 50);
+      setTimeout(runEpisode(agent, environment), 10);
+    } else {
+      console.log(agent.actionValues);
     }
   };
 
@@ -50,13 +60,17 @@ export function runScenario(scenario, addToRewards, limit = 40) {
 export class TiniestEnv {
   constructor(props) {
     this.states = [
-      [O, O],
-      [R, O],
+      [O, O, O, O],
+      [R, O, O, O],
+      [R, O, O, O],
+      [R, O, O, G],
     ];
     this.visited = this.generateVisited();
     this.rewards = [
-      [0, 1],
-      [-1, 0],
+      [0, -1, -1, -1],
+      [-1, -1, -1, -1],
+      [-1, -1, -2, -2],
+      [0, 0, -2, 17],
     ];
     this.state = [0, 0];
 
@@ -87,21 +101,22 @@ export class TiniestEnv {
     const actionMap = {};
     const { left, right, down, up } = this.actions;
     const [limitI, limitJ] = this.size;
-
+    const endingTileColor = G;
+    const wallTileColor = B;
     this.states.forEach((stateRow, i) =>
       stateRow.forEach((state, j) => {
         const stateActions = [];
-        if (state !== B) {
-          if (j > 0 && this.states[i][j - 1] !== B) {
+        if (state !== wallTileColor) {
+          if (j > 0 && this.states[i][j - 1] !== wallTileColor) {
             stateActions.push(left);
           }
-          if (j < limitJ && this.states[i][j + 1] !== B) {
+          if (j < limitJ && this.states[i][j + 1] !== wallTileColor) {
             stateActions.push(right);
           }
-          if (i > 0 && this.states[i - 1][j] !== B) {
+          if (i > 0 && this.states[i - 1][j] !== wallTileColor) {
             stateActions.push(up);
           }
-          if (i < limitI && this.states[i + 1][j] !== B) {
+          if (i < limitI && this.states[i + 1][j] !== wallTileColor) {
             stateActions.push(down);
           }
         }
@@ -112,53 +127,36 @@ export class TiniestEnv {
   }
 
   getActionsForState = (state) => {
-    console.log('state:', state);
     const [x, y] = state;
-    console.log(x, ',', y);
-    console.log('ehhhhh', this.actionMap, this.actionMap[x + ',' + y]);
     return this.actionMap[x + ',' + y];
   };
 
   // state: int Array(2)
   // action: str
-  reward = (action) => {
-    const [left, right, down, up] = this.actions;
-    const [x, y] = this.state;
-    switch (action) {
-      case left: {
-        this.state[1] -= 1;
-        break;
-      }
-      case right: {
-        this.state[1] += 1;
-        break;
-      }
-      case up: {
-        if (y === 0 && x === 1) {
-          this.state = null; // end scenario
-        } else {
-          this.state[0] -= 1;
-        }
-        break;
-      }
-      case down: {
-        this.state[0] += 1;
-        break;
-      }
-      default: {
-        throw new Error('unknown step action', action);
-      }
+  step(action) {
+    const { left, right, down, up } = this.actions;
+    let [y, x] = this.state;
+    if (action === up) {
+      y = y - 1;
+    } else if (action === down) {
+      y = y + 1;
+    } else if (action === right) {
+      x = x + 1;
+    } else if (action === left) {
+      x = x - 1;
+    } else {
+      throw new Error('unknown step action', action);
     }
 
-    let [newY, newX] = this.state;
-    const reward = this.state ? this.rewards[newY][newX] : null;
-    return reward;
-  };
+    this.state = [y, x];
+    const done = this.states[y][x] === G;
+    const reward = this.rewards[y][x];
+    return [[y, x], reward, done];
+  }
 }
 
 export class MonteCarloAgent {
   constructor(props) {
-    console.log('PROPS', props);
     this.actionValues = this.actionValueFuncInit(
       props.allStates,
       props.getActionsForState
@@ -178,7 +176,6 @@ export class MonteCarloAgent {
   }
   actionValueFuncInit(allStates, getActionsForState) {
     const actionValues = {};
-    console.log('allstates...', allStates);
     allStates.forEach((stateRow, i) => {
       stateRow.forEach((_, j) => {
         const actions = getActionsForState([i, j]);
@@ -205,10 +202,15 @@ export class MonteCarloAgent {
   }
 
   act(state) {
-    const isRandomAction = () => Math.floor(this.epsilon / Math.random());
+    const doRandomAction = () => this.epsilon > Math.random();
     const actions = this.getActionsForState(state);
 
-    if (isRandomAction()) {
+    if (actions[0] === null) {
+      return null;
+    }
+    //console.log('isNotRandom returns', isNotRandom());
+    if (doRandomAction()) {
+      //console.log('random');
       const idx = Math.floor(actions.length * Math.random());
       return actions[idx];
     } else {
@@ -216,11 +218,14 @@ export class MonteCarloAgent {
         name: action,
         value: this.actionValues[this.toKeyString(state, action)],
       }));
-      return mappedActions.sort((a, b) => b.value - a.value)[0].name;
+      const max = Math.max(...mappedActions.map((x) => x.value));
+      const filtered = mappedActions.filter((x) => x.value >= max);
+      const idx = Math.floor(filtered.length * Math.random());
+      return filtered[idx].name;
     }
   }
 
-  handleReward(state, action, reward) {
+  handleReward(state, action, reward, currentState) {
     this.rewardsList.push({
       state,
       action,
@@ -231,17 +236,17 @@ export class MonteCarloAgent {
   calculateResult() {
     const { rewardsList, returnsMap, actionValues, gamma } = this;
     let nextReturn = 0;
-    let reward = rewardsList[rewardsList.length - 1].reward;
 
-    for (let i = rewardsList.length - 2; i >= 0; --i) {
-      const { state, action } = rewardsList[i];
+    for (let i = rewardsList.length - 1; i >= 0; --i) {
+      const { state, action, reward } = rewardsList[i];
+
       const expectedReturn = reward + gamma * nextReturn;
 
       const key = this.toKeyString(state, action);
+      console.log('____________', key, returnsMap, expectedReturn);
       returnsMap[key].push(expectedReturn);
       actionValues[key] = averageOf(returnsMap[key]);
 
-      reward = rewardsList[i].reward;
       nextReturn = expectedReturn;
     }
 
