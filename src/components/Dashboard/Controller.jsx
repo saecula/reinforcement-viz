@@ -6,9 +6,10 @@ const startButtonCss = {
   color: 'white',
   borderRadius: '20%',
   backgroundColor: '#32CD32',
-  paddingLeft: '20px',
-  paddingRight: '20px',
-  margin: '5px',
+  padding: '50px',
+  margin: '40px',
+  fontFamily: 'Helvetica',
+  fontSize: '1em',
 };
 
 const Controller = () => {
@@ -16,7 +17,7 @@ const Controller = () => {
   return (
     <div>
       <Button onClick={start} css={startButtonCss}>
-        start
+        start!
       </Button>
     </div>
   );

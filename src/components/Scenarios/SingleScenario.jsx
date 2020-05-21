@@ -9,8 +9,10 @@ const AddButtonCss = {
   color: 'white',
   borderRadius: '50%',
   backgroundColor: 'lightGray',
-  paddingLeft: '3px',
-  paddingRight: '3px',
+  paddingLeft: '13px',
+  paddingRight: '13px',
+  position: 'absolute',
+  right: '10%',
 };
 
 const SingleScenario = (props) => {
@@ -22,14 +24,14 @@ const SingleScenario = (props) => {
   return (
     <OuterScenarioBox>
       {idx === len - 1 && len < 4 && (
-        <button
+        <Button
           css={AddButtonCss}
           onClick={() => {
             openForm();
           }}
         >
           +
-        </button>
+        </Button>
       )}
       <ScenarioBox id="scenario-box">
         <Grid env={env} />

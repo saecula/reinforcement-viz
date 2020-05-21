@@ -6,12 +6,19 @@ import ScenarioInfoGroup from './ScenarioInfoGroup';
 import useDashboard from '../hooks/useDashboard';
 import DashboardCtx from './DashboardCtx';
 
+const dashCss = {
+  position: 'fixed',
+  bottom: '0px',
+  justifyContent: 'space-around',
+  width: '90%',
+};
+
 const Dashboard = () => {
   const hooks = useDashboard();
   return (
     <div>
       <DashboardCtx.Provider value={hooks}>
-        <Flex justifyContent="space-around">
+        <Flex css={dashCss}>
           <Controller />
           <ScenarioInfoGroup />
           <ResultsGraph />

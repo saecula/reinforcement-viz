@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Box } from 'rebass';
 import Ctx from '../MainCtx';
-import { Label, Select } from '@rebass/forms';
+import { Select } from '@rebass/forms';
 import ScenarioCtx from './ScenarioCtx';
 import SingleScenario from './SingleScenario';
 import useScenario from '../hooks/useScenario';
@@ -10,21 +10,34 @@ import { envs } from '../../constants';
 import { ScenarioViewer } from '../styles';
 import Modal from './Modal';
 
-const css = {
+const boxCss = {
+  marginTop: '4em',
   display: 'flex',
   flexDirection: 'column',
+};
+
+const envFormCss = {
+  alignItems: 'center',
+  marginLeft: '4%',
+};
+
+const selectCss = {
+  maxWidth: '20%',
+  border: 'none',
+  backgroundColor: '#fafafa',
+  paddingRight: '5px',
+  fontFamily: 'Helvetica',
 };
 
 const Scenarios = () => {
   const { scenarios, setEnvironment } = useContext(Ctx);
   const hooks = useScenario();
-  console.log('scenarios:', scenarios);
   return (
-    <Box css={css}>
+    <Box css={boxCss}>
       <ScenarioCtx.Provider value={hooks}>
-        <Box as="form">
-          <Label>choose an environment</Label>
+        <Box as="form" css={envFormCss}>
           <Select
+            css={selectCss}
             defaultValue={envs[0].name}
             onChange={(e) => setEnvironment(e.target.value)}
           >

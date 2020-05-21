@@ -38,7 +38,7 @@ const GridRow = (props) => {
 };
 
 const GridBlock = (props) => {
-  const { blockType, i, j, rowLength } = props;
+  const { blockType, i, j } = props;
   return (
     <Box
       style={{

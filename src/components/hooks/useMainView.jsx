@@ -19,6 +19,7 @@ const useMainView = () => {
   );
   const [running, toggleRun] = useState(false);
   const [rewardsMatrix, setRewardsMatrix] = useState([[], [], [], []]);
+
   const addToRewards = (idx) => (value) =>
     setRewardsMatrix((prev) =>
       prev.map((arr, i) => (i === idx ? [...arr, value] : arr))

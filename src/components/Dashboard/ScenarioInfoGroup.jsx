@@ -8,8 +8,7 @@ const css = {
   flexWrap: 'wrap',
   alignItems: 'center',
   justifyContent: 'center',
-  flexDirection: 'column',
-  maxHeight: '10em',
+  minWidth: '10%',
 };
 
 const ScenarioInfoGroup = () => {
