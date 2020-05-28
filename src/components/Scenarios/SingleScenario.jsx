@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button } from 'rebass';
+import { Button, Box } from 'rebass';
 import { ScenarioBox, OuterScenarioBox } from '../styles';
 import ScenarioCtx from './ScenarioCtx';
 import MainCtx from '../MainCtx';
@@ -23,21 +23,23 @@ const SingleScenario = (props) => {
   console.log('here is scenario', props.scenario);
   return (
     <OuterScenarioBox>
-      {idx === len - 1 && len < 4 && (
-        <Button
-          css={AddButtonCss}
-          onClick={() => {
-            openForm();
-          }}
-        >
-          +
-        </Button>
-      )}
       <ScenarioBox id="scenario-box">
         <Grid env={env} />
-        <Button color="black" onClick={() => removeScenario(id)}>
-          x
-        </Button>
+        <Box>
+          <Button color="black" onClick={() => removeScenario(id)}>
+            x
+          </Button>
+          {idx === len - 1 && len < 4 && (
+            <Button
+              css={AddButtonCss}
+              onClick={() => {
+                openForm();
+              }}
+            >
+              +
+            </Button>
+          )}
+        </Box>
       </ScenarioBox>
     </OuterScenarioBox>
   );

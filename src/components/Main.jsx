@@ -7,22 +7,21 @@ import { CtxProvider } from './MainCtx';
 
 const css = {
   display: 'flex',
-  width: '93%',
+  width: '100%',
   height: '100%',
-  padding: '10px',
+  maxHeight: '100%',
   flexDirection: 'column',
-  boxSizing: 'border-box',
 };
 
 function Main() {
   return (
-    <Box css={css}>
-      <CtxProvider>
+    <CtxProvider>
+      <Box css={css}>
         <Title />
         <Scenarios />
         <Dashboard />
-      </CtxProvider>
-    </Box>
+      </Box>
+    </CtxProvider>
   );
 }
 

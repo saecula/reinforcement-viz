@@ -12,6 +12,7 @@ const useMainView = () => {
   const localScenario = isValid(s) ? JSON.parse(s) : null;
 
   const [environment, setEnv] = useState(localEnv || envs[0]);
+  const [episodes, setEpisodes] = useState(40);
   const [scenarios, setScenarios] = useState(
     localScenario.length
       ? localScenario
@@ -54,13 +55,15 @@ const useMainView = () => {
 
   return {
     environment,
-    scenarios,
-    running,
-    start,
-    rewardsMatrix,
     setEnvironment,
+    scenarios,
     addScenario,
     removeScenario,
+    running, // to be used for rendering during longer runs
+    start,
+    episodes,
+    setEpisodes,
+    rewardsMatrix,
   };
 };
 

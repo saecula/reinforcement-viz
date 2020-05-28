@@ -4,27 +4,38 @@ import { Box } from 'rebass';
 const Grid = (props) => {
   const { env: environment } = props;
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: 'calc(100% - 50px)',
+      }}
+    >
       {environment.states.map((row, idx) => (
-        <GridRow key={idx} i={idx} row={row} />
+        <GridRow
+          key={idx}
+          i={idx}
+          row={row}
+          numberOfRows={environment.states.length}
+        />
       ))}
     </div>
   );
 };
 
 const GridRow = (props) => {
-  const { row, i } = props;
+  const { row, numberOfRows, i } = props;
   return (
-    <div
-      style={{
-        maxHeight: '10%',
-        flexBasis: 'auto',
-        display: 'flex',
-        flexDirection: 'row',
-      }}
-    >
-      {row &&
-        row.map((blockType, idx) => (
+    row && (
+      <div
+        style={{
+          flexBasis: 'auto',
+          display: 'flex',
+          flexDirection: 'row',
+          height: `${100 / numberOfRows}%`,
+        }}
+      >
+        {row.map((blockType, idx) => (
           <GridBlock
             key={idx}
             i={i}
@@ -33,7 +44,8 @@ const GridRow = (props) => {
             blockType={blockType}
           />
         ))}
-    </div>
+      </div>
+    )
   );
 };
 

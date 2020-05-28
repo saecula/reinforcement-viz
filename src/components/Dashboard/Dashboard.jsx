@@ -7,24 +7,29 @@ import useDashboard from '../hooks/useDashboard';
 import DashboardCtx from './DashboardCtx';
 
 const dashCss = {
-  position: 'fixed',
+  // position: 'fixed',
   bottom: '0px',
   justifyContent: 'space-around',
-  width: '90%',
+  width: '100%',
+  display: 'flex',
+  flex: 1,
+  minWidth: 0,
+  minHeight: 0,
+  overflow: 'hidden',
+  marginBottom: '10px',
+  marginTop: '10px',
 };
 
 const Dashboard = () => {
   const hooks = useDashboard();
   return (
-    <div>
+    <Flex css={dashCss}>
       <DashboardCtx.Provider value={hooks}>
-        <Flex css={dashCss}>
-          <Controller />
-          <ScenarioInfoGroup />
-          <ResultsGraph />
-        </Flex>
+        <Controller />
+        <ScenarioInfoGroup />
+        <ResultsGraph />
       </DashboardCtx.Provider>
-    </div>
+    </Flex>
   );
 };
 

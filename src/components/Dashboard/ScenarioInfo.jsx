@@ -2,27 +2,27 @@ import React from 'react';
 import { Box } from 'rebass';
 
 export const infoBoxCss = {
-  background: '#ffffff !important',
-  minWidth: '40%',
-  flexBasis: 'auto',
+  background: '#ffffff',
+  width: '20%',
+  height: '35%',
   textAlign: 'center',
-  flexGrow: 1,
-  flexShrink: 1,
-  flexBasis: 'auto',
-  padding: '5px',
+  // flexGrow: 1,
+  // flexShrink: 1,
+  // flexBasis: 'auto',
+  flex: 1,
+  minWidth: '30%',
+  minHeight: 0,
+  overflow: 'hidden',
+  margin: '15px',
 };
-
-const alpha = 'α';
-const gamma = 'γ';
-const epsilon = 'ε';
 
 const toGreek = (str) =>
   str === 'alpha'
-    ? alpha
+    ? 'α'
     : str === 'gamma'
-    ? gamma
+    ? 'γ'
     : str === 'epsilon'
-    ? epsilon
+    ? 'ε'
     : null;
 
 const ScenarioInfo = (props) => {
@@ -33,8 +33,8 @@ const ScenarioInfo = (props) => {
   );
   return (
     <Box css={infoBoxCss}>
-      <h4>{name}</h4>
-      <h5>{optionsString}</h5>
+      <h4 style={{ margin: '10px' }}>{name}</h4>
+      <h5 style={{ margin: '10px' }}>{optionsString}</h5>
     </Box>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Box } from 'rebass';
 import Ctx from '../MainCtx';
-import { Select } from '@rebass/forms';
+import { Select, Input, Label } from '@rebass/forms';
 import ScenarioCtx from './ScenarioCtx';
 import SingleScenario from './SingleScenario';
 import useScenario from '../hooks/useScenario';
@@ -11,40 +11,52 @@ import { ScenarioViewer } from '../styles';
 import Modal from './Modal';
 
 const boxCss = {
-  marginTop: '4em',
-  display: 'flex',
+  padding: '15px',
   flexDirection: 'column',
+  width: '100%',
+  flex: 2,
 };
 
 const envFormCss = {
   alignItems: 'center',
-  marginLeft: '4%',
+  display: 'flex',
+  flexDirection: 'row',
+  padding: '2px',
 };
 
 const selectCss = {
-  maxWidth: '20%',
+  minWidth: '100px',
   border: 'none',
   backgroundColor: '#fafafa',
-  paddingRight: '5px',
+  color: '#484848',
   fontFamily: 'Helvetica',
 };
 
 const Scenarios = () => {
-  const { scenarios, setEnvironment } = useContext(Ctx);
+  const { scenarios, setEnvironment, setEpisodes } = useContext(Ctx);
   const hooks = useScenario();
   return (
     <Box css={boxCss}>
       <ScenarioCtx.Provider value={hooks}>
-        <Box as="form" css={envFormCss}>
-          <Select
-            css={selectCss}
-            defaultValue={envs[0].name}
-            onChange={(e) => setEnvironment(e.target.value)}
-          >
-            {envs.map((e, idx) => (
-              <option key={idx}>{e.name}</option>
-            ))}
-          </Select>
+        <Box css={envFormCss}>
+          <Box>
+            <Select
+              css={selectCss}
+              defaultValue={envs[0].name}
+              onChange={(e) => setEnvironment(e.target.value)}
+            >
+              {envs.map((e, idx) => (
+                <option key={idx}>{e.name}</option>
+              ))}
+            </Select>
+          </Box>
+          <Box pl={5} style={{ display: 'flex', textAlign: 'center' }}>
+            <Label style={{ marginTop: '10px' }}>Number of Episodes:</Label>
+            <Input
+              css={selectCss}
+              onChange={(e) => setEpisodes(e.target.value)}
+            />
+          </Box>
         </Box>
         {hooks.modalView && (
           <Modal>

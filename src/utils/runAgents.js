@@ -11,7 +11,6 @@ import {
 } from '../constants';
 
 export function runScenario(scenario, addToGraph, limit = 40) {
-  console.log('WUT IS THIS SCENARIO', scenario);
   const environment = new TiniestEnv();
   const { grid, getActionsForState } = environment;
   const { options } = scenario;
@@ -24,9 +23,7 @@ export function runScenario(scenario, addToGraph, limit = 40) {
 
   const runEpisode = () => {
     let { state } = environment;
-
     let action;
-    let steps = 0;
 
     let done = false;
     while (!done) {
@@ -35,10 +32,7 @@ export function runScenario(scenario, addToGraph, limit = 40) {
       done = newDone;
       agent.handleReward(state, action, reward);
       state = newState;
-      steps++;
     }
-
-    console.log('steps in this episode:', steps);
 
     const episodeResult = agent.calculateResult();
     addToGraph(episodeResult);

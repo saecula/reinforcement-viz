@@ -8,7 +8,7 @@ const css = {
   flexWrap: 'wrap',
   alignItems: 'center',
   justifyContent: 'center',
-  minWidth: '10%',
+  width: '30%',
 };
 
 const ScenarioInfoGroup = () => {

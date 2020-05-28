@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from 'rebass';
 
 const css = {
   padding: '10px',
@@ -10,14 +11,14 @@ const css = {
   color: 'white',
   backgroundColor: 'darkgrey',
   marginColor: 'darkgrey',
-  position: 'fixed',
   top: '0px',
   left: '0px',
   width: '100%',
+  flex: 0.04,
 };
 
 const Title = () => {
-  return <div style={css}>Reinforcement Viz</div>;
+  return <Box style={css}>Reinforcement Viz</Box>;
 };
 
 export default Title;

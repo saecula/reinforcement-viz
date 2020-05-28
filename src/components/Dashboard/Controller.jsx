@@ -10,6 +10,7 @@ const startButtonCss = {
   margin: '40px',
   fontFamily: 'Helvetica',
   fontSize: '1em',
+  height: '25%',
 };
 
 const Controller = () => {

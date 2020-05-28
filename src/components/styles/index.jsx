@@ -43,31 +43,27 @@ export const ModalContent = styled.div`
 export const ScenarioViewer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   align-items: stretch;
   justify-content: space-around;
-  padding: 2rem;
-  height: 30rem;
+  height: 90%;
 `;
 
 export const OuterScenarioBox = styled.div`
   background: #ffffff !important;
   min-width: 40%;
-  flex-basis: auto;
   text-align: center;
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: auto;
+  min-width: 0;
+  min-height: 0;
+  overflow: 'hidden';
 `;
 
 export const ScenarioBox = styled.div`
   padding: 10px;
-  z-index: 100;
   background: #ffffff !important;
-  min-width: 40%;
-  margin: 5px;
-  flex-basis: auto;
   text-align: center;
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: auto;
+  height: 100%;
 `;
